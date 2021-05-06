@@ -1,0 +1,40 @@
+{
+  "name": "backend_exam_timed-app",
+  "version": "1.0.0",
+  "description": "backend for the exam-timed-app",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Itua George Osagie",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "formidable": "^1.2.2",
+    "fs": "0.0.1-security",
+    "gridfs": "^1.0.0",
+    "gridfs-stream": "^1.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "method-override": "^3.0.0",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.12.1",
+    "multer": "^1.4.2",
+    "multer-gridfs-storage": "^4.2.0",
+    "uuid": "^8.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ituageorge/form_backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ituageorge/form_backend/issues"
+  },
+  "homepage": "https://github.com/ituageorge/form_backend#readme"
+}
