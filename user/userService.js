@@ -72,3 +72,14 @@ async function update(id, userParam) {
 async function _delete(id) {
     await User.findByIdAndRemove(id);
 }
+
+
+// const jwt = require('njwt')
+//   const { token } = req.params
+//   jwt.verify(token, 'top-secret-phrase', (err, verifiedJwt) => {
+//     if(err){
+//       res.send(err.message)
+//     }else{
+//       res.send(verifiedJwt)
+//     }
+//   })
