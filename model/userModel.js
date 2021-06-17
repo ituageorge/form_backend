@@ -1,5 +1,11 @@
 var mongoose = require('mongoose');
+var jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const Token = require("./tokenModel");
+
+const config = require('../config.json');
+
+
 
 
 // var Schema = mongoose.Schema;
@@ -15,6 +21,43 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
+//define schema level methods to create access token and refresh token:
+UserSchema.methods = {
+  createAccessToken: async function () {
+    try {
+      let { _id, username } = this;
+      let accessToken = jwt.sign(
+        { user: { _id, username } },
+        config.secret,
+        {
+          expiresIn: "10m",
+        }
+      );
+      return accessToken;
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+  },
+  createRefreshToken: async function () {
+    try {
+      let { _id, username } = this;
+      let refreshToken = jwt.sign(
+        { user: { _id, username } },
+        config.secretForRefreshToken,
+        {
+          expiresIn: "1d",
+        }
+      );
+
+      await new Token({ token: refreshToken }).save();
+      return refreshToken;
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+  },
+};
 
  // roles: [
     //   {

@@ -3,6 +3,8 @@ var multer = require('multer');
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const User = require('../model/userModel');
+const Token = require('../model/tokenModel');
+const Middleware = require("../middlewares")
 
 // const fileFunc = require('../controller/userController')
 
@@ -45,26 +47,30 @@ router.post('/upload', upload.single('profileImg'), async function (req, res) {
   console.log('reqForMulter', req.file, req.body);
 
   try {
-    const findUser = await User.findOne({username: req.body.username}).exec();
-    console.log('findUser', findUser);
+    let newUser = await User.findOne({username: req.body.username}).exec();
+    console.log('newUser', newUser);
     // if (findUser !== null) {
     //     throw new Error('That user already exisits!');
     // }
 
     // validate
-    if (findUser.username) {
+    if (newUser !== null) {
       throw 'Username "' + req.body.username + '" is already taken';
     }
 
-    const newUser = new User({
+    newUser = await new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       username: req.body.username,
       password: req.body.password,
       profileImg: req.file.filename,
-    });
-    newUser.save();
-    res.json(newUser);
+    }).save();
+    // findUser = newUser.save();
+    let accessToken = await newUser.createAccessToken();
+    let refreshToken = await newUser.createRefreshToken();
+
+    return res.status(201).json({accessToken, refreshToken});
+    // res.json(newUser);
   } catch (error) {
     console.error('Something went wrong', error);
   }
@@ -74,29 +80,89 @@ router.get('/', (req, res) => {
   res.send('Hello my World');
 });
 
+router.post('/login', async (req, res) => {
+  try {
+    //check if user exists in database:
+    const findLoginUser = await User.findOne({
+      username: req.body.username,
+    }).exec();
+    console.log('findLoginUser', findLoginUser);
 
+    // send error if no user found
+    if (!findLoginUser) {
+      return res.status(404).json({error: 'No user found!'});
+    } else {
+      //check if password is valid:
+      var passwordIsValid = bcrypt.compareSync(
+        req.body.password,
+        findLoginUser.password,
+      );
 
-router.post('/login',  async(req, res) => {
-  const findLoginUser = await User.findOne({ username: req.body.username }).exec();
-      console.log('findLoginUser', findLoginUser)
+      if (!passwordIsValid) {
+        return res.status(401).send({auth: false, token: null});
+      } else {
+        //generate a pair of tokens if valid and send
+        let accessToken = await findLoginUser.createAccessToken();
+        let refreshToken = await findLoginUser.createRefreshToken();
 
-   User.findOne({ username: req.body.username }, (err, user) => {
-      if (err) return res.status(500).send('Error on the server.');
-      if (!user) return res.status(404).send('No user found.');
+        return res.status(201).json({accessToken, refreshToken});
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({error: 'Internal Server Error!'});
+  }
+});
 
-      var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-      if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
+router.get('/refreshtoken', async (req, res) => {
+  try {
+    //get refreshToken
+    const {refreshToken} = req.body;
+    //send error if no refreshToken is sent
+    if (!refreshToken) {
+      return res.status(403).json({error: 'Access denied,token missing!'});
+    } else {
+      //query for the token to check if it is valid:
+      const tokenDoc = await Token.findOne({token: refreshToken});
+      //send error if no token found:
+      if (!tokenDoc) {
+        return res.status(401).json({error: 'Token expired!'});
+      } else {
+        //extract payload from refresh token and generate a new access token and send it
+        const payload = jwt.verify(
+          tokenDoc.token,
+          config.secretForRefreshToken,
+        );
+        const accessToken = jwt.sign({user: payload}, config.secret, {
+          expiresIn: '10m',
+        });
+        return res.status(200).json({accessToken});
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({error: 'Internal Server Error!'});
+  }
+});
 
-      var token = jwt.sign({ id: user._id }, config.secret, {
-        expiresIn: 86400 // expires in 24 hours
-      });
+router.delete('/logout', async (req, res) => {
+  try {
+    //delete the refresh token saved in database:
+    const { refreshToken } = req.body;
+    await Token.findOneAndDelete({ token: refreshToken });
+    return res.status(200).json({ success: "User logged out!" });
+  } catch (error) {
+    
+  }
+})
 
-      res.status(200).send({ ...user.toJSON(), token: token });
-    });
-  });
+//@route GET /api/protected_resource
+//@access to only authenticated users
+router.get("/protected_resource", Middleware.checkAuth, (req, res) => {
+  return res.status(200).json({ user: req.user });
+});
 
-
-router.get('/getLatest', async (req, res) => {
+router.get('/getLatest', Middleware.checkAuth, async (req, res) => {
   const getUser = await User.findOne().sort({_id: -1});
   res.json(getUser);
 });
