@@ -3,11 +3,13 @@ var app = express();
 
 // var router = express.Router();
 var mongoose = require('mongoose');
+
 const config = require('./config.json');
 // const User = require('./model/userModel')
 // require('dotenv/config');
 
 // var port = 3000;
+const PORT = process.env.PORT || config.port;
 
 const cors = require('cors');
 // app.use(cors());
@@ -30,7 +32,7 @@ const cors = require('cors');
 
 // connect to Mongodb
 mongoose
-  .connect(config.connectionString, {
+  .connect(process.env.MONGODB_URI || config.connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -53,6 +55,10 @@ app.use(
 
 app.use('/users', routes);
 
-app.listen( config.port , () => {
-  console.log('Server listening on port ' + config.port);
+if (process.env.NODE_ENV === 'production') {
+  
+}
+
+app.listen( PORT , () => {
+  console.log('Server listening on port ' + PORT);
 });
