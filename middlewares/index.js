@@ -6,6 +6,7 @@ const config = require("../config.json");
 exports.checkAuth = (req, res, next) => {
   // get the token stored in the custom header called 'x-auth-token'
   const token = req.get("x-auth-token");
+  console.log('token', token);
 
   //send error message if no token is found:
   if (!token) {
@@ -26,7 +27,7 @@ exports.checkAuth = (req, res, next) => {
       } else if (error.name === "JsonWebTokenError") {
         return res
           .status(401)
-          .json({ error: "Invalid token,please login again!" });
+          .json({ error: "Invalid token, please login again!" });
       } else {
         //catch other unprecedented errors
         console.error(error);

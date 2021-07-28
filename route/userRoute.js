@@ -105,7 +105,7 @@ router.post('/login', async (req, res) => {
         let accessToken = await findLoginUser.createAccessToken();
         let refreshToken = await findLoginUser.createRefreshToken();
 
-        return res.status(201).json({accessToken, refreshToken});
+        return res.status(201).json({accessToken, refreshToken, findLoginUser});
       }
     }
   } catch (error) {
@@ -114,7 +114,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.get('/refreshtoken', async (req, res) => {
+router.get('/refresh_token', async (req, res) => {
   try {
     //get refreshToken
     const {refreshToken} = req.body;
@@ -152,17 +152,21 @@ router.delete('/logout', async (req, res) => {
     await Token.findOneAndDelete({ token: refreshToken });
     return res.status(200).json({ success: "User logged out!" });
   } catch (error) {
-    
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error!" });
   }
 })
 
 //@route GET /api/protected_resource
 //@access to only authenticated users
-router.get("/protected_resource", Middleware.checkAuth, (req, res) => {
+router.get("/protected_user",
+ Middleware.checkAuth,
+  (req, res) => {
+    console.log('userReq', req.user)
   return res.status(200).json({ user: req.user });
 });
 
-router.get('/getLatest', Middleware.checkAuth, async (req, res) => {
+router.get('/getLatest', async (req, res) => {
   const getUser = await User.findOne().sort({_id: -1});
   res.json(getUser);
 });
