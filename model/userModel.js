@@ -6,8 +6,6 @@ const Token = require("./tokenModel");
 const config = require('../config.json');
 
 
-
-
 // var Schema = mongoose.Schema;
 
 const UserSchema = new mongoose.Schema(
@@ -15,9 +13,11 @@ const UserSchema = new mongoose.Schema(
     firstName: {type: String, maxlength: 100},
     lastName: {type: String,  maxlength: 100},
     username: {type: String,  maxlength: 100},
+    email: {type: String,  maxlength: 100},
     password: {type: String,  maxlength: 100},
     date: {type: Date, default:Date.now},
-    profileImg: {type: Buffer }
+    profileImg: {type: Buffer },
+    // resetPassLink: {type: String, default: ''},
   }
 );
 
@@ -78,6 +78,7 @@ UserSchema.methods = {
 
 
 UserSchema.pre('save', function (next) {
+  // if (this.isNew || this.isModified('password'))
   var user = this;
   bcrypt.genSalt(10, (err, salt) => {
     if (err) {
@@ -89,7 +90,12 @@ UserSchema.pre('save', function (next) {
             next()
     });   
   });
-} )
+})
+
+// userSchema.pre('save', async function(next){
+//   if (this.isNew || this.isModified('password')) this.password = await bcrypt.hash(this.password, saltRounds)
+//   next()
+// })
 
 
 // Virtual for user's full name
@@ -114,6 +120,20 @@ UserSchema
 .get(function () {
   return '/user/' + this._id;
 });
+
+
+// UserSchema.set("toJSON", {
+//   transform: function(doc, ret) {
+//     let retJson = {
+//       createdAt: ret.createdAt,
+//       id: ret._id,
+//       token: ret.token,
+//       updatedAt: ret.updatedAt,
+//     }
+//     return retJson
+//   }
+// })
+
 
 
 //Export model

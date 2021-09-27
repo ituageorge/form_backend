@@ -3,5 +3,10 @@
     
     "secret": "vhghfhgfhfgh8585hjfh4rhfhburhdbdudecf7rbshjb",
     "secretForRefreshToken": "64ghfufy7rggfyfgfhfhfgfgfdgdffffdgfhhfhgjkgjgjgjj",
-    "port":3000
+    "port":3000,
+    "HOST":"smtp.gmail.com",
+"PASS":"commana16_google",
+"USER":"ituaosagie100@gmail.com",
+"SERVICE":"gmail",
+"BASE_URL":"http://localhost:8080/#"
 }
