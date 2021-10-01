@@ -7,12 +7,12 @@ const SMTPConnection = require('nodemailer/lib/smtp-connection');
 
 const User = require('../model/userModel');
 const Token = require('../model/tokenModel');
-const {checkAuth, authorizeWithAccessToken } = require('../middlewares');
+const Middleware = require('../middlewares');
 const sendEmail = require('../utils/sendEmail');
 
 // const fileFunc = require('../controller/userController')
 
-const config = require('../config.json');
+// const config = require('../config.json');
 var router = express.Router();
 
 const DIR = '../tmp';
@@ -104,7 +104,7 @@ router.post('/login', async (req, res) => {
       );
 
       if (!passwordIsValid) {
-        return res.status(401).json({ auth: false, token: null, message:"your password is not valid" });
+        return res.status(401).send({ auth: false, token: null });
       } else {
         //generate a pair of tokens if valid and send
         let accessToken = await findLoginUser.createAccessToken();
@@ -138,9 +138,9 @@ router.get('/refresh_token', async (req, res) => {
         //extract payload from refresh token and generate a new access token and send it
         const payload = jwt.verify(
           tokenDoc.token,
-          config.secretForRefreshToken,
+        process.env.SECRET_FOR_REFRESHTOKEN,
         );
-        const accessToken = jwt.sign({ user: payload }, config.secret, {
+        const accessToken = jwt.sign({ user: payload }, process.env.SECRET, {
           expiresIn: '10m',
         });
         return res.status(200).json({ accessToken });
@@ -166,7 +166,7 @@ router.delete('/logout', async (req, res) => {
 
 //@route GET /api/protected_resource
 //@access to only authenticated users
-router.get('/protected_user', checkAuth, (req, res) => {
+router.get('/protected_user', Middleware.checkAuth, (req, res) => {
   console.log('userReq', req.user);
   return res.status(200).json({ user: req.user });
 });
@@ -223,16 +223,17 @@ router.post('/forgot_password/:email', async (req, res) => {
 });
 
 router.post(
-  '/reset_password/receive_new_password/:userId/:accessToken', authorizeWithAccessToken(),
+  '/reset_password/receive_new_password/:userId/:accessToken',
   async (req, res) => {
     try {
 
       const user = await User.findById(req.params.userId);
       console.log('uuuuuser', user);
-      if (!user) {
+      if (!user)
         return res.status(400).send('invalid user or access token expired');
-      }
-     
+      const bpassword = req.body.password;
+      console.log('bpassword', bpassword);
+
       user.password = req.body.password;
       await user.save();
 

@@ -3,8 +3,8 @@ var jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const Token = require("./tokenModel");
 
-const config = require('../config.json');
-
+// const config = require('../config.json');
+require('dotenv').config();
 
 // var Schema = mongoose.Schema;
 
@@ -28,7 +28,7 @@ UserSchema.methods = {
       let { _id, username } = this;
       let accessToken = jwt.sign(
         { user: { _id, username } },
-        config.secret,
+     process.env.SECRET,
         {
           expiresIn: "10m",
         }
@@ -44,7 +44,7 @@ UserSchema.methods = {
       let { _id, username } = this;
       let refreshToken = jwt.sign(
         { user: { _id, username } },
-        config.secretForRefreshToken,
+      process.env.SECRET_FOR_REFRESHTOKEN,
         {
           expiresIn: "1d",
         }

@@ -2,7 +2,7 @@
 const User = require('../model/userModel');
 
 const userService = require('../user/userService');
-// const { config } = require('dotenv/types');
+require('dotenv').config()
 const config = require('../config.json');
 
 
