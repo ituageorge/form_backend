@@ -15,12 +15,12 @@ const sendEmail = require('../utils/sendEmail');
 // const config = require('../config.json');
 var router = express.Router();
 
-const DIR = '../tmp';
+// const DIR = '../tmp';
 
 //for diskstorage
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, DIR);
+    cb(null, '../tmp');
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
