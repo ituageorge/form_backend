@@ -60,7 +60,7 @@ app.use('/users', routes);
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'form_backend', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 
@@ -75,3 +75,16 @@ app.get('/*', (req, res) => {
 app.listen( PORT , () => {
   console.log('Server listening on port ' + PORT);
 });
+
+
+//the code below could replace the heroku-postbuild script tag in the package.json
+// "engines": {
+//   "node": "14.x",
+//   "npm": "6.x"
+// }
+
+//1
+/*"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix client && npm run build --prefix client"*/
+
+//2
+//"heroku-postbuild":"cd client && npm install --only=dev && npm install && npm run build"
