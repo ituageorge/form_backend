@@ -16,7 +16,7 @@ import {UserManagement} from './';
 
 import './index.css';
 
-const baseUrl = 'http://localhost:3000/users';
+const baseUrl = 'https://form-exam.herokuapp.com/users';
 
 // request interceptor to add the auth token header to requests
 axios.interceptors.request.use(

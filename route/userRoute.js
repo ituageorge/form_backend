@@ -138,7 +138,7 @@ router.get('/refresh_token', async (req, res) => {
         //extract payload from refresh token and generate a new access token and send it
         const payload = jwt.verify(
           tokenDoc.token,
-        process.env.SECRET_FOR_REFRESHTOKEN,
+          process.env.SECRET_FOR_REFRESHTOKEN,
         );
         const accessToken = jwt.sign({ user: payload }, process.env.SECRET, {
           expiresIn: '10m',
@@ -211,11 +211,11 @@ router.post('/forgot_password/:email', async (req, res) => {
     //   },
     // );
 
-     sendEmail(user.email, "Password reset", link);
+    sendEmail(user.email, 'Password reset', link);
 
     return res
-            .status(200)
-            .json({ message: `Email has been sent to ${user.email}` });
+      .status(200)
+      .json({ message: `Email has been sent to ${user.email}` });
   } catch (error) {
     res.send('An error occured');
     console.log(error);
@@ -226,7 +226,6 @@ router.post(
   '/reset_password/receive_new_password/:userId/:accessToken',
   async (req, res) => {
     try {
-
       const user = await User.findById(req.params.userId);
       console.log('uuuuuser', user);
       if (!user)
