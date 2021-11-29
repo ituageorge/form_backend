@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import 'regenerator-runtime/runtime';
 
-const baseUrl = 'http://https://form-exam.herokuapp.com/users';
+const baseUrl = 'http://localhost:3000/users';
 
 //request interceptor to add the auth token header to requests
 axios.interceptors.request.use(

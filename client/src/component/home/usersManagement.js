@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-const baseUrl = "https://form-exam.herokuapp.com/users";
+const baseUrl = "http://localhost:3001/users";
 
 // //request interceptor to add the auth token header to requests
 // axios.interceptors.request.use(

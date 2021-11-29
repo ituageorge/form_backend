@@ -9,7 +9,7 @@ import './recoverPassword.css';
 
 // import {history} from '../../_helpers/history';
 
-const baseUrl = 'https://form-exam.herokuapp.com/users';
+const baseUrl = 'http://localhost:3000/users';
 
  const UpdatePassword = () => {
     const location = useLocation();

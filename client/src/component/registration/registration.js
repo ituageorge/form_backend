@@ -46,7 +46,7 @@ axios.interceptors.response.use(
   },
 );
 
-const baseUrl = 'https://form-exam.herokuapp.com/users';
+const baseUrl = 'http://localhost:3000/users';
 
 const RegistrationForm = () => {
   const [firstName, setFirstName] = useState('');
