@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-
 const path = require('path');
 
 // webpack needs to be explicitly required
@@ -14,7 +13,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[chunkhash:8].js',
     sourceMapFilename: '[name].[chunckhash:8].map',
-    chunkFilename: '[id].[chunkhash:8].js'
+    chunkFilename: '[id].[chunkhash:8].js',
 
     // filename: 'main.js',
     // filename: "[name].js",
@@ -24,7 +23,6 @@ module.exports = {
 
   module: {
     rules: [
-      
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
@@ -51,11 +49,11 @@ module.exports = {
   externals: {
     //global app config object
     config: JSON.stringify({
-      apiUrl: "http://localhost:3000"
-    })
+      apiUrl: 'https://form-exam.herokuapp.com/',
+    }),
   },
   optimization: {
-    splitChunks: {chunks: 'all'},
+    splitChunks: { chunks: 'all' },
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -65,8 +63,6 @@ module.exports = {
     new webpack.ProvidePlugin({
       process: 'process/browser',
     }),
-
-  
   ],
   resolve: {
     fallback: {
@@ -76,6 +72,4 @@ module.exports = {
   // optimization: {
   //   runtimeChunk: 'single',
   // },
-
- 
 };
