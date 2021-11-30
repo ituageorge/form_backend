@@ -49,7 +49,7 @@ module.exports = {
   externals: {
     //global app config object
     config: JSON.stringify({
-      apiUrl: 'https://form-exam.herokuapp.com/',
+      apiUrl: 'https://form-exam.herokuapp.com/#/',
     }),
   },
   optimization: {
