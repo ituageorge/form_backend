@@ -67,7 +67,7 @@
         return n;
       }
       r(5666);
-      var m = 'https://form-exam.herokuapp.com/users';
+      var m = 'https://form-exam.herokuapp.com/#';
       function i() {
         var e = l((0, n.useState)(''), 2),
           t = e[0],
