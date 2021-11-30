@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
+require('dotenv').config();
 
 import 'regenerator-runtime/runtime';
 
-const baseUrl = 'http://localhost:3000/users';
+// const baseUrl = 'http://localhost:3000/users';
 
 //request interceptor to add the auth token header to requests
 axios.interceptors.request.use(
@@ -36,7 +37,7 @@ axios.interceptors.response.use(
     ) {
       originalRequest._retry = true;
       return axios
-        .post(`${baseUrl}/refresh_token`, { refreshToken: refreshToken })
+        .post(`${SERVER_BASE_URL}/refresh_token`, { refreshToken: refreshToken })
         .then((res) => {
           if (res.status === 200) {
             localStorage.setItem('accessToken', res.data.accessToken);
@@ -62,7 +63,7 @@ export default function LoginForm() {
     setSubmitted(true);
 
     axios
-      .post(`${baseUrl}/login`, {
+      .post(`${SERVER_BASE_URL}/login`, {
         username: username,
         password: password,
       })

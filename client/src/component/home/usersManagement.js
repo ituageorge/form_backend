@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
+require('dotenv').config();
 
-const baseUrl = "http://localhost:3001/users";
+// const baseUrl = "http://localhost:3001/users";
 
 // //request interceptor to add the auth token header to requests
 // axios.interceptors.request.use(
@@ -32,7 +33,7 @@ const baseUrl = "http://localhost:3001/users";
 //       ) {
 //         originalRequest._retry = true;
 //         return axios
-//           .post(`${baseUrl}/refresh_token`, { refreshToken: refreshToken })
+//           .post(`${SERVER_BASE_URL}/refresh_token`, { refreshToken: refreshToken })
 //           .then((res) => {
 //             if (res.status === 200) {
 //               localStorage.setItem("accessToken", res.data.accessToken);
@@ -46,7 +47,7 @@ const baseUrl = "http://localhost:3001/users";
 //   );
 
   const getProtected = () => {
-    return axios.get(`${baseUrl}/protected_user`);
+    return axios.get(`${SERVER_BASE_URL}/protected_user`);
   }
   
 

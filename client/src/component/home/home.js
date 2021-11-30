@@ -5,6 +5,7 @@ import axios from 'axios';
 import {Buffer} from 'buffer';
 
 import 'regenerator-runtime/runtime';
+require('dotenv').config();
 
 // import {Login} from '../login'
 
@@ -16,7 +17,7 @@ import {UserManagement} from './';
 
 import './index.css';
 
-const baseUrl = 'http://localhost:3000/users';
+// const baseUrl = 'http://localhost:3000/users';
 
 // request interceptor to add the auth token header to requests
 axios.interceptors.request.use(
@@ -48,7 +49,7 @@ axios.interceptors.response.use(
     ) {
       originalRequest._retry = true;
       return axios
-        .post(`${baseUrl}/refresh_token`, {refreshToken: refreshToken})
+        .post(`${SERVER_BASE_URL}/refresh_token`, {refreshToken: refreshToken})
         .then((res) => {
           if (res.status === 200) {
             localStorage.setItem('accessToken', res.data.accessToken);
@@ -76,7 +77,7 @@ const location = useLocation();
   });
 
   const getProtected = () => {
-    return axios.get(`${baseUrl}/protected_user`);
+    return axios.get(`${SERVER_BASE_URL}/protected_user`);
   };
 
   useEffect(() => {
@@ -125,7 +126,7 @@ const location = useLocation();
 
   const handleLogout = async () => {
     const logout = (body) => {
-      return axios.delete(`${baseUrl}/logout`, body);
+      return axios.delete(`${SERVER_BASE_URL}/logout`, body);
 
     };
 

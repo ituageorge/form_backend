@@ -4,12 +4,13 @@ import {
   Link,
 } from 'react-router-dom';
 import axios from 'axios';
+require('dotenv').config();
 // import PropTypes from "prop-types"
 import './recoverPassword.css';
 
 // import {history} from '../../_helpers/history';
 
-const baseUrl = 'http://localhost:3000/users';
+// const baseUrl = 'http://localhost:3000/users';
 
  const UpdatePassword = () => {
     const location = useLocation();
@@ -34,7 +35,7 @@ if(password !== confirmPassword){
 } else {
     axios
       .post(
-        `${baseUrl}/reset_password/receive_new_password/${userId}/${accessToken}`,
+        `${SERVER_BASE_URL}/reset_password/receive_new_password/${userId}/${accessToken}`,
         { password }
       )
       .then(res => res)

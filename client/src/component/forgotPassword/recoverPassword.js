@@ -3,11 +3,12 @@ import {
   Link,
 } from 'react-router-dom';
 import axios from 'axios';
+require('dotenv').config();
 import './recoverPassword.css'
 
 // import {history} from '../../_helpers/history';
 
-const baseUrl = 'http://localhost:3000/users';
+// const baseUrl = 'http://localhost:3000/users';
 
 
 
@@ -18,7 +19,7 @@ const baseUrl = 'http://localhost:3000/users';
 
   const sendPasswordResetEmail = e => {
     e.preventDefault()
-    axios.post(`${baseUrl}/forgot_password/${email}`).then(
+    axios.post(`${SERVER_BASE_URL}/forgot_password/${email}`).then(
       (response) => {
         console.log('response111111', response.data);
         if (response) {
