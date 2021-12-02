@@ -121,6 +121,42 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.post('/login/login', async (req, res) => {
+  try {
+    //check if user exists in database:
+    const findLoginUser = await User.findOne({
+      username: req.body.username,
+    }).exec();
+    console.log('findLoginUser', findLoginUser);
+
+    // send error if no user found
+    if (!findLoginUser) {
+      return res.status(404).json({ error: 'No user found!' });
+    } else {
+      //check if password is valid:
+      var passwordIsValid = bcrypt.compareSync(
+        req.body.password,
+        findLoginUser.password,
+      );
+
+      if (!passwordIsValid) {
+        return res.status(401).send({ auth: false, token: null });
+      } else {
+        //generate a pair of tokens if valid and send
+        let accessToken = await findLoginUser.createAccessToken();
+        let refreshToken = await findLoginUser.createRefreshToken();
+
+        return res
+          .status(201)
+          .json({ accessToken, refreshToken, findLoginUser });
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal Server Error!' });
+  }
+});
+
 router.get('/refresh_token', async (req, res) => {
   try {
     //get refreshToken
