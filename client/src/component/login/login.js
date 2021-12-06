@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-require('dotenv').config();
 
 import 'regenerator-runtime/runtime';
 
@@ -37,7 +36,7 @@ axios.interceptors.response.use(
     ) {
       originalRequest._retry = true;
       return axios
-        .post(`${SERVER_BASE_URL}/refresh_token`, { refreshToken: refreshToken })
+        .post(`${process.env.SERVER_BASE_URL}/refresh_token`, { refreshToken: refreshToken })
         .then((res) => {
           if (res.status === 200) {
             localStorage.setItem('accessToken', res.data.accessToken);
@@ -57,13 +56,13 @@ export default function LoginForm() {
   const [submitted, setSubmitted] = useState(false);
 
   const history = useHistory();
-
+  console.log('bless', `${process.env.SERVER_BASE_URL}/login`);
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
-    console.log('SERVER_BASE_URL', SERVER_BASE_URL);
+    console.log('SERVER_BASE_URL', process.env.SERVER_BASE_URL);
     axios
-      .post(`${SERVER_BASE_URL}/login`, {
+      .post(`${process.env.SERVER_BASE_URL}/login`, {
         username: username,
         password: password,
       })
@@ -83,6 +82,7 @@ export default function LoginForm() {
           return response;
         },
         (error) => {
+          console.log(process.env)
           if (error.response) {
             // client received an error response (5xx, 4xx)
             console.log('errorRes', error.response);

@@ -3,7 +3,7 @@ import {
   Link,
 } from 'react-router-dom';
 import axios from 'axios';
-require('dotenv').config();
+// require('dotenv').config();
 import './recoverPassword.css'
 
 // import {history} from '../../_helpers/history';
@@ -19,7 +19,7 @@ import './recoverPassword.css'
 
   const sendPasswordResetEmail = e => {
     e.preventDefault()
-    axios.post(`${SERVER_BASE_URL}/forgot_password/${email}`).then(
+    axios.post(`${process.env.SERVER_BASE_URL}/forgot_password/${email}`).then(
       (response) => {
         console.log('response111111', response.data);
         if (response) {

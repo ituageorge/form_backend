@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-require('dotenv').config();
+// require('dotenv').config();
 import 'regenerator-runtime/runtime';
 
 //request interceptor to add the auth token header to requests
@@ -34,7 +34,7 @@ axios.interceptors.response.use(
     ) {
       originalRequest._retry = true;
       return axios
-        .post(`${SERVER_BASE_URL}/refresh_token`, { refreshToken: refreshToken })
+        .post(`${process.env.SERVER_BASE_URL}/refresh_token`, { refreshToken: refreshToken })
         .then((res) => {
           if (res.status === 200) {
             localStorage.setItem('accessToken', res.data.accessToken);
@@ -76,7 +76,7 @@ const RegistrationForm = () => {
 
     if (firstName && lastName && username && email && password) {
       axios
-        .post(`${SERVER_BASE_URL}/upload`, formData)
+        .post(`${process.env.SERVER_BASE_URL}/upload`, formData)
         .then(function (response) {
           console.log('response', response);
 

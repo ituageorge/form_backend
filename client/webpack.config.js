@@ -4,13 +4,14 @@ const path = require('path');
 
 // webpack needs to be explicitly required
 const webpack = require('webpack');
+require('dotenv').config({path: './.env'});
 var mode = process.env.NODE_ENV || 'development';
 
 //entry: ["regenerator-runtime/runtime.js", "<your enter js file>"]
 module.exports = {
   entry: ['regenerator-runtime/runtime.js', './src/index.js'],
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'build'),
     filename: '[name].[chunkhash:8].js',
     sourceMapFilename: '[name].[chunckhash:8].map',
     chunkFilename: '[id].[chunkhash:8].js',
@@ -62,6 +63,9 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser',
+    }),
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(process.env)
     }),
   ],
   resolve: {

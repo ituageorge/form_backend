@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-require('dotenv').config();
+// require('dotenv').config();
 
 // const baseUrl = "http://localhost:3001/users";
 
@@ -33,7 +33,7 @@ require('dotenv').config();
 //       ) {
 //         originalRequest._retry = true;
 //         return axios
-//           .post(`${SERVER_BASE_URL}/refresh_token`, { refreshToken: refreshToken })
+//           .post(`${process.env.SERVER_BASE_URL}/refresh_token`, { refreshToken: refreshToken })
 //           .then((res) => {
 //             if (res.status === 200) {
 //               localStorage.setItem("accessToken", res.data.accessToken);
@@ -47,7 +47,7 @@ require('dotenv').config();
 //   );
 
   const getProtected = () => {
-    return axios.get(`${SERVER_BASE_URL}/protected_user`);
+    return axios.get(`${process.env.SERVER_BASE_URL}/protected_user`);
   }
   
 

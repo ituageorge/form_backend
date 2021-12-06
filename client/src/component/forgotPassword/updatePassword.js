@@ -4,7 +4,7 @@ import {
   Link,
 } from 'react-router-dom';
 import axios from 'axios';
-require('dotenv').config();
+//require('dotenv').config();
 // import PropTypes from "prop-types"
 import './recoverPassword.css';
 
@@ -35,7 +35,7 @@ if(password !== confirmPassword){
 } else {
     axios
       .post(
-        `${SERVER_BASE_URL}/reset_password/receive_new_password/${userId}/${accessToken}`,
+        `${process.env.SERVER_BASE_URL}/reset_password/receive_new_password/${userId}/${accessToken}`,
         { password }
       )
       .then(res => res)
