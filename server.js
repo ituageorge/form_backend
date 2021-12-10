@@ -41,6 +41,7 @@ mongoose
     console.log('Connected to MongoDB ...');
   })
   .catch((err) => {
+    console.log(process.env.MONGODB_URI, config.connectionString);
     console.error('Could not Connect to MongoDb !!!', err);
   });
 
