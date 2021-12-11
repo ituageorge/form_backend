@@ -69,7 +69,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+# .env
 .env.test
 
 config.json
@@ -105,4 +105,4 @@ config.json
 # TernJS port file
 .tern-port
 
-build
+

@@ -126,7 +126,7 @@ const location = useLocation();
 
   const handleLogout = async () => {
     const logout = (body) => {
-      return axios.delete(`${process.env.SE_URL}/logout`, body);
+      return axios.delete(`${process.env.SERVER_BASE_URL}/logout`, body);
 
     };
 
