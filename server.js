@@ -41,7 +41,6 @@ mongoose
     console.log('Connected to MongoDB ...');
   })
   .catch((err) => {
-    console.log(process.env.MONGODB_URI, config.connectionString);
     console.error('Could not Connect to MongoDb !!!', err);
   });
 
@@ -57,13 +56,15 @@ app.use(
 
 app.use('/users', routes);
 
+//for upload file
+app.use(express.static(__dirname + '/client'));
+app.use('/tmp', express.static('tmp'));
 
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
-
 
 // if(process.env.NODE_ENV === 'production') {
 //   // set static folder
@@ -73,10 +74,9 @@ app.get('/*', (req, res) => {
 //   });
 // }
 
-app.listen( PORT , () => {
+app.listen(PORT, () => {
   console.log('Server listening on port ' + PORT);
 });
-
 
 //the code below could replace the heroku-postbuild script tag in the package.json
 // "engines": {

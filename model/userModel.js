@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema(
     email: {type: String,  maxlength: 100},
     password: {type: String,  maxlength: 100},
     date: {type: Date, default:Date.now},
-    profileImg: {type: Buffer },
+    profileImg: {type: String },
     // resetPassLink: {type: String, default: ''},
   }
 );

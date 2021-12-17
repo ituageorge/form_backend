@@ -20,11 +20,12 @@ var router = express.Router();
 //for diskstorage
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '../tmp');
+    cb(null, './tmp');
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + '-' + uniqueSuffix);
+    // const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    // cb(null, file.fieldname + '-' + uniqueSuffix);
+    cb(null, file.originalname)
   },
 });
 
@@ -48,7 +49,7 @@ router.post('/upload', upload.single('profileImg'), async function (req, res) {
   // Everything went fine.
   // req.file is the name of your file in the form above, here 'profileImg'
   // req.body will hold the text fields, if there were any
-  console.log('reqForMulter', req.file, req.body);
+  console.log('reqForMulter', req.file);
 
   try {
     let newUser = await User.findOne({ username: req.body.username }).exec();
@@ -68,13 +69,16 @@ router.post('/upload', upload.single('profileImg'), async function (req, res) {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
-      profileImg: req.file.filename,
+      profileImg: req.file.path,
     }).save();
     // findUser = newUser.save();
+    console.log('reqForMulter', req);
     let accessToken = await newUser.createAccessToken();
     let refreshToken = await newUser.createRefreshToken();
 
     return res.status(201).json({ accessToken, refreshToken });
+
+    // return res.status(201).json(newUser);
     // res.json(newUser);
   } catch (error) {
     console.error('Something went wrong', error);
@@ -113,10 +117,11 @@ router.post('/login', async (req, res) => {
         return res
           .status(201)
           .json({ accessToken, refreshToken, findLoginUser });
+          // return res.status(201).json({ accessToken, refreshToken });
       }
     }
   } catch (error) {
-    console.error(error);
+    console.error(error, "herre");
     return res.status(500).json({ error: 'This is an Internal Server Error!!' });
   }
 });
@@ -228,7 +233,8 @@ router.post('/forgot_password/:email', async (req, res) => {
     //     }).save();
     // }
 
-    const link = `${process.env.SERVER_BASE_URL}/reset-password-link/?userId=${user._id}&accessToken=${accessToken}`;
+    const link = `${process.env.EMAIL_BASE_URL}/reset-password-link/?userId=${user._id}&accessToken=${accessToken}`;
+    
     console.log('link', link);
 
     // return User.updateMany(
