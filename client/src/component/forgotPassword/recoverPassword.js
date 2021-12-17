@@ -43,16 +43,16 @@ import './recoverPassword.css'
           console.log('eeeror', error);
         }
       },
-    );
+    ).catch(err => console.warn("ERROR FROM SERVER RECOVER PASSWORD:", err));
    
     setSubmitted(true);
     setEmail("");
     }
     return (
-        <div className= "recoverpasswordstyles">
-        <h3>Reset your password</h3>
+        <div className= "h-screen w-full flex flex-col items-center justify-center subpixel-antialiased text-2xl bg-gradient-to-r from-purple-500 to-pink-500 font-mono">
+        <h3 className='my-3 text-4xl'>Reset your password</h3>
         {submitted ? (
-          <div className="reset-password-form-sent-wrapper">
+          <div className="text-left my-2 flex flex-col my-auto items-center justify-center max-w-md">
             <p>
               If that account is in our system, we emailed you a link to reset
               your password.
@@ -63,39 +63,37 @@ import './recoverPassword.css'
             </Link>
           </div>
         ) : (
-          <div className="reset-password-form-wrapper">
-            <p>
+          <div className="text-left my-2 flex flex-col my-auto items-center justify-center bg-green-100">
+            <p className='my-2 text-2xl'>
               It happens to the best of us. Enter your email and we'll send you
               reset instructions.
             </p>
-            <form className="form row" onSubmit={sendPasswordResetEmail}>
-            <div
-                className={
-                  '' +
-                  (submitted && !email ? ' has-error' : '')
-                }
-              >
-                <label htmlFor="email">Email</label>
+            <form name='form' className={"pb-4 flex flex-col items-center justify-center  + (submitted && !email ? ' bg-red-100' : '')"} onSubmit={sendPasswordResetEmail}>
+           
+            {/* <div
+className={
+  'form-group flex flex-col'
+}
+> */}
+                <label  className="text-left -my-3" htmlFor="email">Email</label>
                 <input
                   type="email"
-                  className="form-control my-3 p-4"
+                  className="max-w-md form-input border-0 border-b-8 p-3 my-3 focus:border-none border-purple-500 "
                   // ref={emailEl}
                   value={email}
                   name="email"
-                  // defaultValue={email}
-                  // onChange={handleChange}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email address"
                 />
+                
                 {submitted && !email && (
-                  <div className="help-block">Email is required</div>
+                  <div className="text-red-600">Email is required</div>
                 )}
-              </div>
+              {/* </div> */}
 
-              <div className="form-row col">      
-              <button className="btn-primary password-reset-btn"> <span className="buttonText">Send password reset link to email</span>
+              <button type='submit' className="bg-gradient-to-r from-purple-500 to-pink-500 font-bold my-5 tracking-widest text-white w-full block">
+              Send password reset link to email
               </button>
-               </div>   
             </form>
             <Link to="/login">I remember my password</Link>
           </div>
@@ -106,4 +104,5 @@ import './recoverPassword.css'
 
 }
 
-export default RecoverPassword
+export default RecoverPassword;
+

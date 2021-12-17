@@ -5,23 +5,26 @@ import './styles.css';
 const PrivateRoute = lazy(() => import('../_helpers/PrivateRoute'))
 // import { PrivateRoute } from '../_helpers';
 
-const HomePage = lazy(() => import('../component/home/home'))
+const HomePage = lazy(() => import('../component/home/hometail'))
 // import { HomePage } from '../component/home';
 
 const UserManagement = lazy(() => import('../component/home/usersManagement'))
 // import { UserManagement } from '../component/home';
 
-const LoginForm = lazy(() => import('../component/login/login'))
+const LoginForm = lazy(() => import('../component/login/logintail'))
 // import { LoginForm } from '../component/login';
 
-const RegistrationForm = lazy(() => import('../component/registration/registration'))
+const RegistrationForm = lazy(() => import('../component/registration/registertail'))
 // import { RegistrationForm } from '../component/registration';
 
 const RecoverPassword = lazy(() => import('../component/forgotPassword/recoverPassword'))
 // import { RecoverPassword } from '../component/forgotPassword';
 
-const UpdatePassword = lazy(() => import('../component/forgotPassword/updatePassword'))
+const UpdatePassword = lazy(() => import('../component/forgotPassword/updatePassword'));
 // import { UpdatePassword } from '../component/forgotPassword';
+
+const Loader = lazy(() => import('../component/loader/loading'))
+
 
 export default function App() {
   let userId = '';
@@ -33,6 +36,7 @@ export default function App() {
       >
       <HashRouter>
       <Suspense fallback={<h1>Loading...</h1>}>
+      {/* <Suspense fallback={<Loader /> | <h1 className=''>Loading</h1>}> */}
         <Switch>
           <PrivateRoute exact path="/" component={HomePage} />
           <Route path="/user_management" component={UserManagement} />

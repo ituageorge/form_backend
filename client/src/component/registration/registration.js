@@ -23,7 +23,7 @@ axios.interceptors.response.use(
   (response) => {
     return response;
   },
-  function (error) {
+  async function (error) {
     const originalRequest = error.config;
     let refreshToken = localStorage.getItem('refreshToken');
 
@@ -33,15 +33,13 @@ axios.interceptors.response.use(
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
-      return axios
-        .post(`${process.env.SERVER_BASE_URL}/refresh_token`, { refreshToken: refreshToken })
-        .then((res) => {
-          if (res.status === 200) {
-            localStorage.setItem('accessToken', res.data.accessToken);
-            console.log('Access token refreshed!');
-            return axios(originalRequest);
-          }
-        });
+      const res = await axios
+        .post(`${process.env.SERVER_BASE_URL}/refresh_token`, { refreshToken: refreshToken });
+      if (res.status === 200) {
+        localStorage.setItem('accessToken', res.data.accessToken);
+        console.log('Access token refreshed!');
+        return axios(originalRequest);
+      }
     }
     return Promise.reject(error);
   },
@@ -84,7 +82,7 @@ const RegistrationForm = () => {
           localStorage.setItem('accessToken', accessToken);
           localStorage.setItem('refreshToken', refreshToken);
 
-          // window.location.reload();
+        
         })
         .catch(function (error) {
           console.log(error);
@@ -211,7 +209,7 @@ const RegistrationForm = () => {
 
           <div className="form-row col">
             <button type="submit" className="btn1 btn1 mt-3 mb-5 ">
-              <span className="buttonText">Register</span>
+              <span className="m-auto text-white">Register</span>
             </button>
           </div>
           <p>

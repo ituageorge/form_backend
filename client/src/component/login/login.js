@@ -25,7 +25,7 @@ axios.interceptors.response.use(
   (response) => {
     return response;
   },
-  function (error) {
+  async function (error) {
     const originalRequest = error.config;
     let refreshToken = localStorage.getItem('refreshToken');
 
@@ -35,15 +35,14 @@ axios.interceptors.response.use(
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
-      return axios
-        .post(`${process.env.SERVER_BASE_URL}/refresh_token`, { refreshToken: refreshToken })
-        .then((res) => {
-          if (res.status === 200) {
-            localStorage.setItem('accessToken', res.data.accessToken);
-            console.log('Access token refreshed!');
-            return axios(originalRequest);
-          }
-        });
+      const res = await axios
+        .post(`${process.env.SERVER_BASE_URL}/refresh_token`, { refreshToken: refreshToken });
+      if (res.status === 200) {
+        localStorage.setItem('accessToken', res.data.accessToken);
+        console.log('res.data.accessToken', res.data.accessToken);
+        console.log('Access token refreshed!');
+        return axios(originalRequest);
+      }
     }
     return Promise.reject(error);
   },
@@ -68,7 +67,7 @@ export default function LoginForm() {
       })
       .then(
         (response) => {
-          console.log('response111111', response);
+          console.log('response111111223', response.data.findLoginUser);
           if (response) {
             let { accessToken, refreshToken, findLoginUser } = response.data;
             localStorage.setItem('accessToken', accessToken);
@@ -104,9 +103,9 @@ export default function LoginForm() {
         <h1 className="font-weight-bold">Exam Time Application</h1>
         <h4>Sign into your account</h4>
         <form name="form row" onSubmit={handleSubmit}>
-          <div
+          {/* <div
             className={' col' + (submitted && !username ? ' has-error' : '')}
-          >
+          > */}
             <label htmlFor="username">Username</label>
             <input
               type="text"
@@ -119,12 +118,12 @@ export default function LoginForm() {
             {submitted && !username && (
               <div className="help-block">Username is required</div>
             )}
-          </div>
-          <div
+          {/* </div> */}
+          {/* <div
             className={
               'form-group col' + (submitted && !username ? ' has-error' : '')
             }
-          >
+          > */}
             <label htmlFor="username">Password</label>
             <input
               type="password"
@@ -137,19 +136,19 @@ export default function LoginForm() {
             {submitted && !password && (
               <div className="help-block">Password is required</div>
             )}
-          </div>
+          {/* </div> */}
           <div className="form-row col">
             <button className="btn1 btn1 mt-3 mb-5">
               {' '}
-              <span className="buttonText">Login</span>{' '}
+              <span className="m-auto text-white">Login</span>{' '}
             </button>
           </div>
 
-          <Link to="/recover/password">Forgot password?</Link>
+          {/* <Link to="/recover/password">Forgot password?</Link>
           <p>
             Don't have an account?
             <Link to="/register">Register here</Link>
-          </p>
+          </p> */}
         </form>
       </div>
     </div>

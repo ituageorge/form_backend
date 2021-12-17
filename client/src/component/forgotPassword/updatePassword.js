@@ -46,20 +46,20 @@ if(password !== confirmPassword){
   }
 
     return (
-          <div className="updatepasswordstyles">
-        <h3 style={{ paddingBottom: "1.25rem" }}>Update your password</h3>
+          <div className=" h-screen w-full flex flex-col items-center subpixel-antialiased text-2xl justify-center bg-gradient-to-r from-purple-500 to-pink-500">
+        <h3 className='pb-6'>Update your password</h3>
         {submitted ? (
-          <div className="reset-password-form-sent-wrapper">
+          <div className="flex  text-left my-6">
             <p>Your password has been saved.</p>
-            <Link to="/login" className="ghost-btn">
+            <Link to="/login" className="p-6">
               Sign back in
             </Link>
           </div>
         ) : (
-          <div className="reset-password-form-wrapper">
-            <form
+          <div className="flex flex-col items-center justify-center">
+            <form name='form' className='pb-4 flex flex-col items-center justify-center'
               onSubmit={updateThePassword}
-              style={{ paddingBottom: "1.5rem" }}
+              // style={{ paddingBottom: "1.5rem" }}
             >
               <input
                 // onChange={this.handleChange("password")}
@@ -67,7 +67,8 @@ if(password !== confirmPassword){
                 value={password}
                 placeholder="New password"
                 type="password"
-                className="ghostInput"
+                // className="ghostInput"
+                className="form-input border-0 border-b-4 py-2 my-3 border-purple-500 "
               />
               <input
                 // onChange={this.handleChange("confirmPassword")}
@@ -75,41 +76,30 @@ if(password !== confirmPassword){
                 value={confirmPassword}
                 placeholder="Confirm password"
                 type="password"
-                className="ghostInput"
+                className="form-input border-0 border-b-4 py-3 my-3 border-purple-500 "
+                name='confirm password'
+                // className="ghostInput"
               />
 
-              <button className="btn-primary password-reset-btn">
+              {/* <button className="btn-primary password-reset-btn">
               Update password
-              </button>
+              </button> */}
+
+              <button type='submit' className="bg-gradient-to-r from-purple-500 to-pink-500 font-bold text-xl my-5 py-3 tracking-widest text-white  ">
+              Update password
+</button>
             </form>
 
-            <p
-              style={{
-                fontSize: "1rem",
-                maxWidth: "420px",
-                paddingLeft: "0.5rem"
-              }}
-            >
-              Make sure it's at least 8 characters including a number and a
-              lowercase letter. Read some documentation on{" "}
-              <a
-                href="https://help.github.com/articles/creating-a-strong-password/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                safer password practices
-              </a>
-              .
-            </p>
+            
           </div>
         )}
         </div>
     )
 }
 
-// UpdatePassword.propTypes = {
-//   token: PropTypes.string.isRequired,
-//   userId: PropTypes.string.isRequired
-// }
+
 
 export default UpdatePassword
+
+
+

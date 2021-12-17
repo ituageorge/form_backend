@@ -1,2 +1,2 @@
-export { default as LoginForm } from "./login"
+export { default as LoginForm } from "./logintail"
 // export * from "./login"
