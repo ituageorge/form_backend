@@ -23,8 +23,8 @@ const RecoverPassword = lazy(() => import('../component/forgotPassword/recoverPa
 const UpdatePassword = lazy(() => import('../component/forgotPassword/updatePassword'));
 // import { UpdatePassword } from '../component/forgotPassword';
 
-const Loader = lazy(() => import('../component/loader/loading'))
-
+// const Loader = lazy(() => import('../component/loader/loading'))
+  {/* <Suspense fallback={<Loader /> | <h1 className=''>Loading</h1>}> */}
 
 export default function App() {
   let userId = '';
@@ -35,8 +35,7 @@ export default function App() {
     //  style={{ backgroundImage: "url(dist\sincerely-media-DgQf1dUKUTM-unsplash.jpg)" }}
       >
       <HashRouter>
-      {/* <Suspense fallback={<h1>Loading...</h1>}> */}
-      <Suspense fallback={<Loader /> | <h1 className=''>Loading</h1>}>
+      <Suspense fallback={<h1>Loading...</h1>}>
         <Switch>
           <PrivateRoute exact path="/" component={HomePage} />
           <Route path="/user_management" component={UserManagement} />

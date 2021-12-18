@@ -80,10 +80,11 @@ var RecoverPassword = /*#__PURE__*/(0,react.lazy)(function () {
 var UpdatePassword = /*#__PURE__*/(0,react.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(669), __webpack_require__.e(444)]).then(__webpack_require__.bind(__webpack_require__, 2444));
 }); // import { UpdatePassword } from '../component/forgotPassword';
+// const Loader = lazy(() => import('../component/loader/loading'))
 
-var Loader = /*#__PURE__*/(0,react.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 122).then(__webpack_require__.bind(__webpack_require__, 2122));
-});
+{
+  /* <Suspense fallback={<Loader /> | <h1 className=''>Loading</h1>}> */
+}
 function App() {
   var userId = '';
   var token = '';
@@ -91,9 +92,7 @@ function App() {
     className: "" //  style={{ backgroundImage: "url(dist\sincerely-media-DgQf1dUKUTM-unsplash.jpg)" }}
 
   }, /*#__PURE__*/react.createElement(react_router_dom/* HashRouter */.UT, null, /*#__PURE__*/react.createElement(react.Suspense, {
-    fallback: /*#__PURE__*/react.createElement(Loader, null) | /*#__PURE__*/react.createElement("h1", {
-      className: ""
-    }, "Loading")
+    fallback: /*#__PURE__*/react.createElement("h1", null, "Loading...")
   }, /*#__PURE__*/react.createElement(react_router/* Switch */.rs, null, /*#__PURE__*/react.createElement(PrivateRoute, {
     exact: true,
     path: "/",
@@ -275,7 +274,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, "/* body {\r\n    margin: 0;\r\n    fon
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + "." + {"27":"1012aaf3","122":"822101aa","281":"6ddf0ef2","444":"1498c008","530":"2ec6eabc","566":"c2bd38db","669":"88cc25a7","738":"03fa4983","739":"7113deb1","753":"a9820382","775":"132bd1ae"}[chunkId] + ".js";
+/******/ 			return "" + chunkId + "." + {"27":"1012aaf3","281":"6ddf0ef2","444":"1498c008","530":"2ec6eabc","566":"c2bd38db","669":"88cc25a7","738":"03fa4983","739":"7113deb1","753":"a9820382","775":"132bd1ae"}[chunkId] + ".js";
 /******/ 		};
 /******/ 	})();
 /******/ 	
