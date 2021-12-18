@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { useLocation,
   useHistory,} from 'react-router-dom';
 import axios from 'axios';
-import {Buffer} from 'buffer';
+// import {Buffer} from 'buffer';
 
 import 'regenerator-runtime/runtime';
 // require('dotenv').config();

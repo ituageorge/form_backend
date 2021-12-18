@@ -36,6 +36,7 @@
     "html-webpack-plugin": "^5.3.1",
     "jquery": "^1.9.1",
     "line-clamp": "^1.0.0",
+    "mini-css-extract-plugin": "^2.4.5",
     "popper.js": "^1.16.1",
     "postcss": "^8.4.5",
     "postcss-loader": "^6.2.1",
@@ -44,8 +45,9 @@
     "sass-loader": "^11.0.1",
     "style-loader": "^2.0.0",
     "tailwindcss": "^3.0.1",
-    "webpack": "^5.25.1",
-    "webpack-cli": "^4.5.0",
+    "terser-webpack-plugin": "^5.3.0",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
@@ -56,6 +58,8 @@
     "dotenv": "^10.0.0",
     "history": "^5.0.0",
     "moment": "^2.29.1",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "process": "^0.11.10",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
@@ -63,6 +67,7 @@
     "react-images-upload": "^1.2.8",
     "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.9",
+    "terser": "3.14.1",
     "util": "^0.12.3",
     "uuidv4": "^6.2.6"
   }

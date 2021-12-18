@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-// require('dotenv').config();
+require('dotenv').config();
 import 'regenerator-runtime/runtime';
 
 //request interceptor to add the auth token header to requests
