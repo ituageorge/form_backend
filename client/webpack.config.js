@@ -87,8 +87,8 @@ module.exports = {
     assetFilter: function (assetFilename) {
       return assetFilename.endsWith('.js');
     },
-    // maxEntrypointSize: 400000,
-    // maxAssetSize: 100000,
-    // hints: 'warning',
+    maxEntrypointSize: 400000,
+    maxAssetSize: 100000,
+    hints: 'warning',
   },
 };
