@@ -35,8 +35,8 @@ export default function App() {
     //  style={{ backgroundImage: "url(dist\sincerely-media-DgQf1dUKUTM-unsplash.jpg)" }}
       >
       <HashRouter>
-      <Suspense fallback={<h1>Loading...</h1>}>
-      {/* <Suspense fallback={<Loader /> | <h1 className=''>Loading</h1>}> */}
+      {/* <Suspense fallback={<h1>Loading...</h1>}> */}
+      <Suspense fallback={<Loader /> | <h1 className=''>Loading</h1>}>
         <Switch>
           <PrivateRoute exact path="/" component={HomePage} />
           <Route path="/user_management" component={UserManagement} />

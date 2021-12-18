@@ -81,9 +81,9 @@ var UpdatePassword = /*#__PURE__*/(0,react.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(669), __webpack_require__.e(444)]).then(__webpack_require__.bind(__webpack_require__, 2444));
 }); // import { UpdatePassword } from '../component/forgotPassword';
 
-var Loader = /*#__PURE__*/(/* unused pure expression or super */ null && (lazy(function () {
+var Loader = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 122).then(__webpack_require__.bind(__webpack_require__, 2122));
-})));
+});
 function App() {
   var userId = '';
   var token = '';
@@ -91,7 +91,9 @@ function App() {
     className: "" //  style={{ backgroundImage: "url(dist\sincerely-media-DgQf1dUKUTM-unsplash.jpg)" }}
 
   }, /*#__PURE__*/react.createElement(react_router_dom/* HashRouter */.UT, null, /*#__PURE__*/react.createElement(react.Suspense, {
-    fallback: /*#__PURE__*/react.createElement("h1", null, "Loading...")
+    fallback: /*#__PURE__*/react.createElement(Loader, null) | /*#__PURE__*/react.createElement("h1", {
+      className: ""
+    }, "Loading")
   }, /*#__PURE__*/react.createElement(react_router/* Switch */.rs, null, /*#__PURE__*/react.createElement(PrivateRoute, {
     exact: true,
     path: "/",
