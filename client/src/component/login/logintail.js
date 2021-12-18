@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-require('dotenv').config();
+// require('dotenv').config();
 import 'regenerator-runtime/runtime';
 
 // const baseUrl = 'http://localhost:3000/users';

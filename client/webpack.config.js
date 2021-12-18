@@ -1,7 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const path = require('path');
-const TerserPlugin = require("terser-webpack-plugin");
 
 // webpack needs to be explicitly required
 const webpack = require('webpack');
@@ -56,12 +55,6 @@ module.exports = {
   },
   optimization: {
     splitChunks: { chunks: 'all' },
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        include: /\/includes/,
-      }),
-    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -78,17 +71,9 @@ module.exports = {
   resolve: {
     fallback: {
       util: require.resolve('util/'),
-      path: require.resolve('path-browserify'),
-      os: require.resolve('os-browserify/browser'),
-      fs:false,
     },
   },
-  performance: {
-    assetFilter: function (assetFilename) {
-      return assetFilename.endsWith('.js');
-    },
-    maxEntrypointSize: 400000,
-    maxAssetSize: 100000,
-    hints: 'warning',
-  },
+  // optimization: {
+  //   runtimeChunk: 'single',
+  // },
 };
