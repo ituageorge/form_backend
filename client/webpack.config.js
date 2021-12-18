@@ -16,7 +16,6 @@ module.exports = {
     filename: '[name].[chunkhash:8].js',
     sourceMapFilename: '[name].[chunckhash:8].map',
     chunkFilename: '[id].[chunkhash:8].js',
-    publicPath: /build/,
 
     // filename: 'main.js',
     // filename: "[name].js",
