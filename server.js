@@ -5,12 +5,12 @@ const path = require('path');
 var mongoose = require('mongoose');
 require('dotenv').config();
 
-const config = require('./config.json');
+
 // const User = require('./model/userModel')
 // require('dotenv/config');
 
 // var port = 3000;
-const PORT = process.env.PORT || config.port;
+const PORT = process.env.PORT ;
 
 const cors = require('cors');
 // app.use(cors());
@@ -33,7 +33,7 @@ const cors = require('cors');
 
 // connect to Mongodb
 mongoose
-  .connect(process.env.MONGODB_URI || config.connectionString, {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
