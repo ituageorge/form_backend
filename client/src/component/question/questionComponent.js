@@ -36,7 +36,7 @@ import {questions} from './';
         </div>
       ) : (
         <div className='flex flex-col lg:flex-row w-full'>
-          <div className="flex text-4xl italic hover:not-italic w-full text-white">
+          <div className="flex text-4xl italic w-full text-white">
             <div className="mb-6 m-4">
               <span>Question {currentQuestion + 1}</span>/{questions.length}
             </div>

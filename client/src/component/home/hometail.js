@@ -124,8 +124,8 @@ const HomePage = (findLoginUser) => {
     }
   };
   return (
-    <div className="w-full h-full bg-gradient-to-r from-purple-500 to-pink-500 lg:h-screen flex flex-col lg:flex-row justify-center items-center py-12 px-20 font-sans">
-      <div className="lg:w-1/4 w-full h-screen flex flex-col bg-purple-900 p-4">
+    <div className="w-full h-full bg-gradient-to-r from-purple-500 to-pink-500 flex flex-col lg:flex-row justify-center items-center py-12 px-20 font-sans">
+      <div className="lg:w-1/4 w-full h-full flex flex-col bg-purple-900 p-4">
         <div className="p-4 w-full">
           <img src={appState.profileUserImg} alt="my passport" />
         </div>
