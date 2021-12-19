@@ -5,7 +5,7 @@ const path = require('path');
 var mongoose = require('mongoose');
 require('dotenv').config();
 
-
+const config = require('./config.json');
 // const User = require('./model/userModel')
 // require('dotenv/config');
 
@@ -33,7 +33,7 @@ const cors = require('cors');
 
 // connect to Mongodb
 mongoose
-  .connect(process.env.MONGODB_URI, {
+  .connect(process.env.MONGODB_URI || config.connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
